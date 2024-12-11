@@ -1,0 +1,26 @@
+def average_score(marks):
+    total = sum(marks)
+    count = len(marks)
+    return total / count if count > 0 else 0
+
+def highest_and_lowest_score(marks):
+    return max(marks), min(marks)
+
+def count_absent_students(marks):
+    return marks.count(-1)
+
+def highest_frequency_mark(marks):
+    freq = {mark: marks.count(mark) for mark in marks if mark != -1}
+    return max(freq, key=freq.get)
+
+# Input: Marks list (-1 indicates absent students)
+marks = [50, 75, -1, 80, 90, 50, -1, 75, 90, 50]
+
+# Remove absentees for calculations
+valid_marks = [mark for mark in marks if mark != -1]
+
+# Outputs
+print("a) Average score of class:", average_score(valid_marks))
+print("b) Highest score and lowest score:", highest_and_lowest_score(valid_marks))
+print("c) Count of absent students:", count_absent_students(marks))
+print("d) Mark with highest frequency:", highest_frequency_mark(marks))

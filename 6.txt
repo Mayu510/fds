@@ -1,0 +1,18 @@
+# Function for Quick Sort
+def quick_sort(arr):
+    if len(arr) <= 1:
+        return arr
+    pivot = arr[len(arr) // 2]  # Choose the middle element as the pivot
+    left = [x for x in arr if x < pivot]
+    right = [x for x in arr if x > pivot]
+    return quick_sort(left) + [pivot] + quick_sort(right)
+
+# Sample list of first-year student percentages
+percentages = [78.5, 92.3, 65.0, 85.4, 91.7, 72.9, 88.5, 67.8]
+
+# Sort the list using Quick Sort
+sorted_percentages = quick_sort(percentages)
+
+# Display the top 5 scores
+print("Sorted Percentages:", sorted_percentages)
+print("Top 5 Scores:", sorted_percentages[-5:])

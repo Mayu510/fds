@@ -1,0 +1,36 @@
+#include <iostream>
+#include <queue>
+using namespace std;
+
+int main() {
+    queue<string> jobQueue;
+    string job;
+    int choice;
+
+    while (true) {
+        cout << "\n1. Add Job\n2. Delete Job\n3. Display Jobs\n4. Exit\nChoice: ";
+        cin >> choice;
+
+        if (choice == 1) {
+            cout << "Enter job: ";
+            cin >> job;
+            jobQueue.push(job);
+            cout<<"Job is Added";
+        }
+        else if (choice == 2 && !jobQueue.empty()) {
+            cout << "Job deleted: " << jobQueue.front() << endl;
+            jobQueue.pop();
+        }
+        else if (choice == 3) {
+            if (!jobQueue.empty()) {
+                cout << "Jobs in queue: " << jobQueue.front() << endl;
+            } else {
+                cout << "No jobs.\n";
+            }
+        }
+        else if (choice == 4) break;
+        
+    }
+
+    return 0;
+}

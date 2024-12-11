@@ -1,0 +1,37 @@
+# Sample list of books with 'name' and 'cost'
+books = [
+    {"name": "Book A", "cost": 450},
+    {"name": "Book B", "cost": 550},
+    {"name": "Book C", "cost": 300},
+    {"name": "Book D", "cost": 600},
+    {"name": "Book A", "cost": 450},  # Duplicate entry
+]
+
+# a) Delete duplicate entries
+def delete_duplicates(books):
+    unique_books = []
+    for book in books:
+        if book not in unique_books:
+            unique_books.append(book)
+    return unique_books
+
+# b) Display books in ascending order based on cost
+def sort_books_by_cost(books):
+    return sorted(books, key=lambda x: x["cost"])
+
+# c) Count books with cost more than 500
+def count_books_costing_more_than_500(books):
+    return len([book for book in books if book["cost"] > 500])
+
+# d) Copy books with cost less than 500 into a new list
+def copy_books_costing_less_than_500(books):
+    return [book for book in books if book["cost"] < 500]
+
+# Remove duplicate books
+books = delete_duplicates(books)
+
+# Outputs
+print("Books after removing duplicates:", books)
+print("Books sorted by cost:", sort_books_by_cost(books))
+print("Number of books costing more than 500:", count_books_costing_more_than_500(books))
+print("Books costing less than 500:", copy_books_costing_less_than_500(books))

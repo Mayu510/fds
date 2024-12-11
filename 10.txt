@@ -1,0 +1,74 @@
+#include <iostream>
+#include <stack>
+#include <string>
+using namespace std;
+
+// Function to get precedence of operators
+int precedence(char op) {
+    return (op == '+' || op == '-') ? 1 : 2;  // +, - have lower precedence than *, /
+}
+
+// Convert Infix to Postfix
+string infixToPostfix(string infix) {
+    stack<char> s;
+    string postfix = "";
+
+    for (char ch : infix) {
+        if (isdigit(ch)) {  // Operand
+            postfix += ch;
+        } else if (ch == '(') {  // '(' push to stack
+            s.push(ch);
+        } else if (ch == ')') {  // ')' pop until '('
+            while (s.top() != '(') {
+                postfix += s.top();
+                s.pop();
+            }
+            s.pop();  // Remove '('
+        } else {  // Operator
+            while (!s.empty() && precedence(s.top()) >= precedence(ch)) {
+                postfix += s.top();
+                s.pop();
+            }
+            s.push(ch);
+        }
+    }
+
+    while (!s.empty()) {  // Pop remaining operators
+        postfix += s.top();
+        s.pop();
+    }
+
+    return postfix;
+}
+
+// Evaluate Postfix Expression
+int evaluatePostfix(string postfix) {
+    stack<int> s;
+    for (char ch : postfix) {
+        if (isdigit(ch)) {  // Operand
+            s.push(ch - '0');  // Convert char to integer
+        } else {  // Operator
+            int b = s.top(); s.pop();
+            int a = s.top(); s.pop();
+            if (ch == '+') s.push(a + b);
+            if (ch == '-') s.push(a - b);
+            if (ch == '*') s.push(a * b);
+            if (ch == '/') s.push(a / b);
+        }
+    }
+    return s.top();  // Final result
+}
+
+int main() {
+    string infix;
+    cout << "Enter infix expression: ";
+    cin >> infix;
+
+    string postfix = infixToPostfix(infix);
+    cout << "Postfix Expression: " << postfix << endl;
+
+    int result = evaluatePostfix(postfix);
+    cout << "Postfix Evaluation Result: " << result << endl;
+
+    return 0;
+}

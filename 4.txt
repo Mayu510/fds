@@ -1,0 +1,32 @@
+# Function for Selection Sort
+def selection_sort(arr):
+    for i in range(len(arr)):
+        min_index = i
+        for j in range(i + 1, len(arr)):
+            if arr[j] < arr[min_index]:
+                min_index = j
+        arr[i], arr[min_index] = arr[min_index], arr[i]
+
+# Function for Bubble Sort
+def bubble_sort(arr):
+    n = len(arr)
+    for i in range(n):
+        for j in range(0, n - i - 1):
+            if arr[j] > arr[j + 1]:
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+
+# Sample list of student percentages
+percentages = [78.5, 92.3, 65.0, 85.4, 91.7, 72.9, 88.5, 67.8]
+
+# Selection Sort
+selection_sort(percentages)
+print("Sorted by Selection Sort:", percentages)
+print("Top 5 scores:", percentages[-5:])
+
+# Reset list for Bubble Sort
+percentages = [78.5, 92.3, 65.0, 85.4, 91.7, 72.9, 88.5, 67.8]
+
+# Bubble Sort
+bubble_sort(percentages)
+print("Sorted by Bubble Sort:", percentages)
+print("Top 5 scores:", percentages[-5:])

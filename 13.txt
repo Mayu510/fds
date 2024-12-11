@@ -1,0 +1,55 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+string queue[5];
+int front = 0, rear = 0;
+
+void addOrder(string order) {
+    if (rear < 5) {
+        queue[rear++] = order;
+    } else {
+        cout << "Queue full!" << endl;
+    }
+}
+
+void serveOrder() {
+    if (front < rear) {
+        cout << "Serving: " << queue[front++] << endl;
+    } else {
+        cout << "No orders to serve." << endl;
+    }
+}
+
+void displayOrders() {
+    for (int i = front; i < rear; i++) {
+        cout << queue[i] << " ";
+    }
+    cout << endl;
+}
+
+int main() {
+    int choice;
+    string order;
+
+    do {
+        cout << "\n1. Add Order\n2. Serve Order\n3. Display Orders\n4. Exit\nChoice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                cout << "Enter order: ";
+                cin >> order;
+                addOrder(order);
+                break;
+            case 2:
+                serveOrder();
+                break;
+            case 3:
+                displayOrders();
+                break;
+        }
+    } while (choice != 4);
+
+    return 0;
+}

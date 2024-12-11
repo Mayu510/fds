@@ -1,0 +1,87 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+// Structure for club member
+struct Member {
+    string prn;
+    string name;
+    Member* next;
+};
+
+// Function to add a member to the list
+void addMember(Member*& head, string prn, string name) {
+    Member* newMember = new Member{prn, name, nullptr};
+    if (!head) {
+        head = newMember;
+    } else {
+        Member* temp = head;
+        while (temp->next) temp = temp->next;
+        temp->next = newMember;
+    }
+}
+
+// Function to delete a member by PRN
+void deleteMember(Member*& head, string prn) {
+    if (!head) return;
+    if (head->prn == prn) {
+        Member* temp = head;
+        head = head->next;
+        delete temp;
+        return;
+    }
+    Member* temp = head;
+    while (temp->next && temp->next->prn != prn) temp = temp->next;
+    if (temp->next) {
+        Member* toDelete = temp->next;
+        temp->next = temp->next->next;
+        delete toDelete;
+    }
+}
+
+// Function to display all members
+void displayMembers(Member* head) {
+    Member* temp = head;
+    while (temp) {
+        cout << "PRN: " << temp->prn << ", Name: " << temp->name << endl;
+        temp = temp->next;
+    }
+}
+
+// Main function to run the program
+int main() {
+    Member* club1 = nullptr;
+    Member* club2 = nullptr;
+
+    addMember(club1, "PRN001", "Alice");
+    addMember(club1, "PRN002", "Bob");
+
+    addMember(club2, "PRN003", "Charlie");
+    addMember(club2, "PRN004", "David");
+
+    cout << "Club 1 Members:" << endl;
+    displayMembers(club1);
+
+    cout << "\nClub 2 Members:" << endl;
+    displayMembers(club2);
+
+    // Concatenate club2 to club1
+    if (club1) {
+        Member* temp = club1;
+        while (temp->next) temp = temp->next;
+        temp->next = club2;
+    } else {
+        club1 = club2;
+    }
+
+    cout << "\nAfter Concatenating Club 2 to Club 1:" << endl;
+    displayMembers(club1);
+
+    // Delete a member from club1
+    deleteMember(club1, "PRN002");
+
+    cout << "\nAfter Deleting Member 'PRN002':" << endl;
+    displayMembers(club1);
+
+    return 0;
+}

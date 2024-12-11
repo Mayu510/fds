@@ -1,0 +1,39 @@
+# Function for Insertion Sort
+def insertion_sort(arr):
+    for i in range(1, len(arr)):
+        key = arr[i]
+        j = i - 1
+        while j >= 0 and arr[j] > key:
+            arr[j + 1] = arr[j]
+            j -= 1
+        arr[j + 1] = key
+
+# Function for Shell Sort
+def shell_sort(arr):
+    n = len(arr)
+    gap = n // 2
+    while gap > 0:
+        for i in range(gap, n):
+            temp = arr[i]
+            j = i
+            while j >= gap and arr[j - gap] > temp:
+                arr[j] = arr[j - gap]
+                j -= gap
+            arr[j] = temp
+        gap //= 2
+
+# Sample list of second-year student percentages
+percentages = [78.5, 92.3, 65.0, 85.4, 91.7, 72.9, 88.5, 67.8]
+
+# Insertion Sort
+insertion_sort(percentages)
+print("Sorted by Insertion Sort:", percentages)
+print("Top 5 scores:", percentages[-5:])
+
+# Reset list for Shell Sort
+percentages = [78.5, 92.3, 65.0, 85.4, 91.7, 72.9, 88.5, 67.8]
+
+# Shell Sort
+shell_sort(percentages)
+print("Sorted by Shell Sort:", percentages)
+print("Top 5 scores:", percentages[-5:])

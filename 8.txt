@@ -1,0 +1,101 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+// Node structure to store student info
+struct Node {
+    string name;
+    Node* next;
+};
+
+// Function to add student to the list
+void addStudent(Node*& head, string name) {
+    Node* newNode = new Node();
+    newNode->name = name;
+    newNode->next = head;
+    head = newNode;
+}
+
+// Function to display all students in the list
+void display(Node* head) {
+    Node* temp = head;
+    while (temp) {
+        cout << temp->name << " ";
+        temp = temp->next;
+    }
+    cout << endl;
+}
+
+// Function to check if student is in the list
+bool isPresent(Node* head, string name) {
+    Node* temp = head;
+    while (temp) {
+        if (temp->name == name) return true;
+        temp = temp->next;
+    }
+    return false;
+}
+
+// Function to get the union of two sets
+Node* unionSets(Node* setA, Node* setB) {
+    Node* result = nullptr;
+    Node* temp = setA;
+    
+    // Add all students from set A
+    while (temp) {
+        addStudent(result, temp->name);
+        temp = temp->next;
+    }
+
+    // Add students from set B if not already in set A
+    temp = setB;
+    while (temp) {
+        if (!isPresent(setA, temp->name)) {
+            addStudent(result, temp->name);
+        }
+        temp = temp->next;
+    }
+    return result;
+}
+
+// Function to get the intersection of two sets
+Node* intersectionSets(Node* setA, Node* setB) {
+    Node* result = nullptr;
+    Node* temp = setA;
+    
+    // Add common students from both sets
+    while (temp) {
+        if (isPresent(setB, temp->name)) {
+            addStudent(result, temp->name);
+        }
+        temp = temp->next;
+    }
+    return result;
+}
+
+// Main function
+int main() {
+    Node* setA = nullptr; // Students who like Vanilla
+    Node* setB = nullptr; // Students who like Butterscotch
+
+    // Adding students to both sets
+    addStudent(setA, "Alice");
+    addStudent(setA, "Bob");
+    addStudent(setA, "Charlie");
+
+    addStudent(setB, "David");
+    addStudent(setB, "Charlie");
+    addStudent(setB, "Eve");
+
+    // Displaying Union (students who like either Vanilla or Butterscotch)
+    Node* unionResult = unionSets(setA, setB);
+    cout << "Union (Vanilla or Butterscotch or both): ";
+    display(unionResult);
+
+    // Displaying Intersection (students who like both Vanilla and Butterscotch)
+    Node* intersectionResult = intersectionSets(setA, setB);
+    cout << "Intersection (both Vanilla and Butterscotch): ";
+    display(intersectionResult);
+
+    return 0;
+}
